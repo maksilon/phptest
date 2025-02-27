@@ -1,6 +1,9 @@
 <?php
 // backend/api/prijava.php
 header("Content-Type: application/json");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
 
 // Povezivanje sa bazom
 $mysqli = new mysqli("localhost", "phptestuser", "phptestpass", "phptest");
@@ -22,7 +25,7 @@ $startni_broj = $_POST['startni_broj'] ?? 0;
 $takmicarska_licenca = isset($_POST['takmicarska_licenca']) && $_POST['takmicarska_licenca'] == '1' ? 1 : 0;
 $grupa = $_POST['grupa'] ?? '';
 
-// Priprema SQL upita (poželjno koristiti prepared statements)
+// Priprema SQL upita
 $stmt = $mysqli->prepare("INSERT INTO registrations (full_name, datum_rodjenja, kontakt_telefon, email, motocikl_i_zapremina, broj_vozacke_dozvole, vozacka_dozvola_vazi_do, termin_id, startni_broj, takmicarska_licenca, grupa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $stmt->bind_param("ssssssssiis", $full_name, $datum_rodjenja, $kontakt_telefon, $email, $motocikl_i_zapremina, $broj_vozacke_dozvole, $vozacka_dozvola_vazi_do, $termin_id, $startni_broj, $takmicarska_licenca, $grupa);
 
