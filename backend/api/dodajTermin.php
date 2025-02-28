@@ -1,4 +1,5 @@
 <?php
+// backend/api/dodajTermin.php
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
@@ -10,7 +11,7 @@ if ($mysqli->connect_errno) {
     exit;
 }
 
-// Umesto $_POST, učitavamo JSON telo:
+// Učitavanje JSON inputa
 $data = json_decode(file_get_contents('php://input'), true);
 
 $naziv = $data['naziv'] ?? '';
@@ -22,9 +23,9 @@ if (!$naziv || !$datum) {
     exit;
 }
 
-// Konverzija formata datuma (ako koristiš <input type="datetime-local">)
+// Konverzija formata datuma: npr. "2025-04-10T10:00" => "2025-04-10 10:00:00"
 $datum = str_replace("T", " ", $datum);
-if (strlen($datum) === 16) {
+if (strlen($datum) == 16) {  // ako nema sekundi
     $datum .= ":00";
 }
 
