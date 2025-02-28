@@ -1,23 +1,24 @@
 <?php
 // backend/api/registrations.php
 header("Content-Type: application/json");
-// CORS (za lokalni rad)
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
 
-$mysqli = new mysqli("localhost", "phptestuser", "phptestpass", "phptest");
+$mysqli = new mysqli("db", "phptestuser", "phptestpass", "phptest");
 if ($mysqli->connect_errno) {
     echo json_encode(["error" => "Ne mogu da se povežem sa bazom: " . $mysqli->connect_error]);
     exit;
 }
 
-// Upit za sve prijave, možeš prilagoditi redosled i filtriranje
-$result = $mysqli->query("SELECT * FROM registrations ORDER BY created_at DESC");
-$registrations = [];
+// Vraćamo samo odabrane kolone (možeš dodati i ostale ako želiš)
+$query = "SELECT id, full_name, email, potvrdeno FROM registrations";
+$result = $mysqli->query($query);
 
+$registrations = [];
 while ($row = $result->fetch_assoc()) {
-    $registrations[] = $row;
+    // Ako su bitna polja popunjena, dodajemo red u niz
+    if (!empty($row['full_name'])) {
+        $registrations[] = $row;
+    }
 }
 
 echo json_encode($registrations);

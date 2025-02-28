@@ -47,32 +47,44 @@
       }
     },
     created() {
-      this.fetchTermini();
+      axios.get('http://localhost:8080/api/termini.php')
+        .then(response => {
+          this.termini = response.data;
+        })
+        .catch(error => {
+          console.error("Greška pri učitavanju termina:", error);
+        });
     },
     methods: {
-      fetchTermini() {
-        axios.get('http://localhost:8080/api/termini.php')
+      submitForm() {
+        axios.post('http://localhost:8080/api/prijava.php', this.form)
           .then(response => {
-            this.termini = response.data;
-            console.log("Učitani termini:", this.termini);
+            console.log("Odgovor servera:", response.data);
+            if (response.data.success) {
+              alert("Uspešno ste se prijavili!");
+              // Reset forme
+              this.form = {
+                full_name: '',
+                datum_rodjenja: '',
+                kontakt_telefon: '',
+                email: '',
+                motocikl_i_zapremina: '',
+                broj_vozacke_dozvole: '',
+                vozacka_dozvola_vazi_do: '',
+                termin_id: '',
+                startni_broj: '',
+                takmicarska_licenca: 0,
+                grupa: ''
+              };
+            } else {
+              alert("Greška: " + response.data.error);
+            }
           })
           .catch(error => {
-            console.error("Greška pri učitavanju termina:", error);
+            console.error("Greška pri slanju prijave:", error);
           });
-      },
-      submitForm() {
-        // Ovde ide logika za slanje forme za prijavu (npr. axios.post prema prijava.php)
-        console.log("Podaci forme:", this.form);
       }
     }
   }
   </script>
-  
-  <style scoped>
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  </style>
   
