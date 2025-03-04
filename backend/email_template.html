@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Uputstva za plaćanje</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333;">
+    <div style="max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 8px;">
+      <h2 style="text-align: center;">Uputstva za plaćanje</h2>
+      <p><strong>Uplatilac:</strong> {{full_name}}</p>
+      <p><strong>Primaoc:</strong> MK Spark</p>
+      <p><strong>Racun za uplatu:</strong> 264-4564878-264</p>
+      <p><strong>Poziv na broj:</strong> 97-{{broj_vozacke_dozvole}}</p>
+      <p><strong>Svrha uplate:</strong> {{svrha_uplate}}</p>
+      <p><strong>Iznos:</strong> {{iznos}}</p>
+      <p>Molimo vas pratite uputstva za uplatu i kontaktirajte nas ukoliko imate pitanja.</p>
+      <div style="text-align: center; margin-top: 20px;">
+        {{qr_code}}
+      </div>
+    </div>
+  </body>
+</html>

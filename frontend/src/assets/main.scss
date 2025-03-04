@@ -1,0 +1,25 @@
+// frontend/src/assets/main.scss
+
+// Prepisivanje Bootstrap varijabli za dark temu
+$body-bg: #121212;
+$body-color: #e0e0e0;
+
+@import "bootstrap/scss/bootstrap";
+
+// Dodatni stilovi
+body {
+  background-color: $body-bg;
+  color: $body-color;
+}
+
+a {
+  color: #64ffda;
+}
+
+.btn-primary {
+  background-color: #64ffda;
+  border-color: #64ffda;
+  &:hover {
+    background-color: darken(#64ffda, 10%);
+  }
+}
